@@ -10,12 +10,15 @@ FORMATFLAGS=-i -style=WebKit
 
 all: $(bin)
 
-$(bin): main.o
-	$(CXX) $(LDFLAGS) -o $(bin) main.o
+$(bin): main.o slider.o sliderio.o
+	$(CC) $(LDFLAGS) -o $(bin) main.o slider.o sliderio.o
 
 clean:
 	rm -f *.o $(bin) *.exe
 format:
 	$(FORMAT) $(FORMATFLAGS) *.c *.h
 
+
 main.o: main.c slider.h sliderio.h
+slider.o: slider.c slider.h
+sliderio.o: sliderio.c sliderio.h

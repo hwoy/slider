@@ -1,6 +1,11 @@
 #ifndef _SLIDER_H_
 #define _SLIDER_H_
 
+#include <stdlib.h>
+
+#define WxH 3
+#define RANDLOOP 100
+
 struct point {
     unsigned int y, x;
 };
@@ -12,67 +17,26 @@ enum {
     cmd_right
 };
 
-void swap(unsigned int* const a, unsigned int* const b)
-{
-    unsigned int tmp;
-    tmp = *a;
-    *a = *b;
-    *b = tmp;
-}
+enum {
+	gid_normal,gid_over
+};
 
-unsigned int getindex(const unsigned int* const sq, unsigned int blank)
-{
-    unsigned int i;
+void initseed(unsigned int seed);
 
-    for (i = 0; i < 9; ++i) {
-        if (sq[i] == blank)
-            return i;
-    }
+unsigned int initsq(unsigned int* const sq);
 
-    return -1u;
-}
+int randomsq(unsigned int* const sq, unsigned int index);
 
-void getxy(unsigned int index, struct point* const p)
-{
-    p->y = index / 3;
-    p->x = index % 3;
-}
+void swap(unsigned int* const a, unsigned int* const b);
 
-unsigned int slide(unsigned int* const sq, unsigned int kid, unsigned int _index)
-{
-    struct point p;
-    unsigned int index, ret = -1U;
+unsigned int getindex(const unsigned int* const sq, unsigned int blank);
 
-    getxy(index = getindex(sq, _index), &p);
+void getxy(unsigned int index, struct point* const p);
 
-    if (kid == cmd_up && p.y > 0) {
-        swap(sq + index, sq + index - 3);
-        ret = kid;
-    }
+unsigned int slide(unsigned int* const sq, unsigned int kid, unsigned int _index);
 
-    else if (kid == cmd_down && p.y < 2) {
-        swap(sq + index, sq + index + 3);
-        ret = kid;
-    }
+void slidesq(unsigned int* const sq, const unsigned int* const cmdsq, unsigned int n, unsigned int index);
 
-    else if (kid == cmd_left && p.x > 0) {
-        swap(sq + index - 1, sq + index);
-        ret = kid;
-    }
-
-    else if (kid == cmd_right && p.x < 2) {
-        swap(sq + index + 1, sq + index);
-        ret = kid;
-    }
-
-    return ret;
-}
-
-void slidesq(unsigned int* const sq, const unsigned int* const cmdsq, unsigned int n, unsigned int index)
-{
-    unsigned int i;
-    for (i = 0; i < n; ++i)
-        slide(sq, cmdsq[i], index);
-}
+unsigned int gameid(const unsigned int* const sq);
 
 #endif
