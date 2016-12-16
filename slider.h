@@ -1,12 +1,10 @@
 #ifndef _SLIDER_H_
 #define _SLIDER_H_
 
-#include <stdlib.h>
-
 #define WxH 3
 
 #ifndef RANDLOOP
-#define RANDLOOP 100
+#define RANDLOOP 200
 #endif
 
 struct point {
@@ -29,7 +27,7 @@ void initseed(unsigned int seed);
 
 unsigned int initsq(unsigned int* const sq);
 
-int randomsq(unsigned int* const sq, unsigned int index);
+unsigned int randomsq(unsigned int* const sq, unsigned int index);
 
 void swap(unsigned int* const a, unsigned int* const b);
 

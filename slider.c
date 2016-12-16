@@ -1,4 +1,5 @@
 #include "slider.h"
+#include <stdlib.h>
 
 void swap(unsigned int* const a, unsigned int* const b)
 {
@@ -78,21 +79,14 @@ void initseed(unsigned int seed)
     srand(seed);
 }
 
-int randomsq(unsigned int* const sq, unsigned int index)
+unsigned int randomsq(unsigned int* const sq, unsigned int index)
 {
     unsigned int i;
-    unsigned int* s;
-    s = malloc(RANDLOOP * sizeof(unsigned int));
-    if (!s)
-        return 0;
 
     for (i = 0; i < RANDLOOP; ++i)
-        s[i] = rand() % (WxH * WxH);
+        slide(sq, rand() % (WxH * WxH), index);
 
-    slidesq(sq, s, RANDLOOP, index);
-
-    free(s);
-    return 1;
+    return RANDLOOP;
 }
 
 unsigned int gameid(const unsigned int* const sq)
