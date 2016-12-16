@@ -9,12 +9,12 @@ char peter(char ch, unsigned int i, unsigned int j, unsigned int d)
         return ch;
 
     else if (i > 0 && i < d - 1 && j > 0 && j < d - 1)
-        return 0x20;
+        return FRAMECH2;
 
-    return '#';
+    return FRAMECH1;
 }
 
-void frame(const unsigned int* sq, unsigned int n, unsigned int d, unsigned int index)
+void frame(const unsigned int* const sq, const char* const num, unsigned int n, unsigned int d, unsigned int index)
 {
     unsigned int i, j;
 
@@ -23,21 +23,21 @@ void frame(const unsigned int* sq, unsigned int n, unsigned int d, unsigned int 
             if (sq[j / d] == index)
                 putchar(0x20);
             else
-                printf("%c", peter(sq[j / d] + '0', i, j % d, d));
+                printf("%c", peter(num[sq[j / d]], i, j % d, d));
 
             if (!((j + 1) % d))
-                printf(" ");
+                putchar(0x20);
         }
         putchar('\n');
     }
 }
 
-void printsq(const unsigned int* const sq, unsigned int square, unsigned int index)
+void printsq(const unsigned int* const sq, const char* const num, unsigned int square, unsigned int index)
 {
     unsigned int i;
 
     for (i = 0; i < WxH; ++i) {
-        frame(sq + i * WxH, WxH, square, index);
+        frame(sq + i * WxH, num, WxH, square, index);
         putchar('\n');
     }
 }

@@ -1,11 +1,19 @@
 #ifndef _SLIDERIO_H_
 #define _SLIDERIO_H_
 
+#ifndef FRAMECH1
+#define FRAMECH1 '#'
+#endif
+
+#ifndef FRAMECH2
+#define FRAMECH2 0x20
+#endif
+
 char peter(char ch, unsigned int i, unsigned int j, unsigned int d);
 
-void frame(const unsigned int* sq, unsigned int n, unsigned int d, unsigned int index);
+void frame(const unsigned int* const sq, const char* const num, unsigned int n, unsigned int d, unsigned int index);
 
-void printsq(const unsigned int* const sq, unsigned int square, unsigned int index);
+void printsq(const unsigned int* const sq, const char* const num, unsigned int square, unsigned int index);
 
 unsigned int mapcmd(const char* const cmdstr, char ch);
 

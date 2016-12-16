@@ -4,7 +4,10 @@
 #include <stdlib.h>
 
 #define WxH 3
+
+#ifndef RANDLOOP
 #define RANDLOOP 100
+#endif
 
 struct point {
     unsigned int y, x;
@@ -18,7 +21,8 @@ enum {
 };
 
 enum {
-	gid_normal,gid_over
+    gid_normal,
+    gid_over
 };
 
 void initseed(unsigned int seed);

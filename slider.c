@@ -88,7 +88,6 @@ int randomsq(unsigned int* const sq, unsigned int index)
 
     for (i = 0; i < RANDLOOP; ++i)
         s[i] = rand() % (WxH * WxH);
-	
 
     slidesq(sq, s, RANDLOOP, index);
 
@@ -101,7 +100,8 @@ unsigned int gameid(const unsigned int* const sq)
     unsigned int i;
 
     for (i = 0; i < WxH * WxH; ++i)
-        if(sq[i] != i) return gid_normal;
-	
-	return gid_over;
+        if (sq[i] != i)
+            return gid_normal;
+
+    return gid_over;
 }
