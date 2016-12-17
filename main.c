@@ -105,6 +105,7 @@ int main(void)
             break;
         } else if (ch == keycmd[kid_reset]) {
             initgame(sq, seed, index);
+			move=0;
             continue;
         }
 
