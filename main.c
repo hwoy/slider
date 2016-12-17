@@ -1,4 +1,4 @@
-#include RANDLOOP 1000
+#define RANDLOOP 1000
 
 #include "slider.h"
 #include "sliderio.h"
