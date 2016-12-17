@@ -116,7 +116,7 @@ int main(int argc, const char* argv[])
                 seed = s2ui(buff);
                 break;
             case opt_b:
-                if ((index = getsqstrindex(sqstr, buff[0])) == -1U) {
+                if (sLen(buff) != 1 || (index = getsqstrindex(sqstr, buff[0])) == -1U) {
                     fprintf(stderr, "Error code:%u = %s\n", err_nan, err[err_bnm]);
                     return err_bnm;
                 }

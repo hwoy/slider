@@ -1,6 +1,6 @@
 #include "function.h"
 
-int isUint(const char* ch)
+int isUint(const char* const ch)
 {
     unsigned int i;
     if (!sLen(ch))
@@ -28,7 +28,7 @@ pow2ui(unsigned int base, unsigned int pow)
 }
 
 unsigned int
-s2ui(const char* ch)
+s2ui(const char* const ch)
 {
     unsigned int i, j, k;
     j = 0;
@@ -42,7 +42,7 @@ s2ui(const char* ch)
 }
 
 unsigned int
-sLen(const char* ch)
+sLen(const char* const ch)
 {
     unsigned int i;
 
