@@ -1,7 +1,9 @@
 #ifndef _SLIDER_H_
 #define _SLIDER_H_
 
+#ifndef WxH
 #define WxH 3
+#endif
 
 #ifndef RANDLOOP
 #define RANDLOOP 100

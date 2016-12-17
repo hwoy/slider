@@ -7,14 +7,21 @@
 #define SQUARE 7
 #endif
 
-#define BNUM '9'
 
-static const char cmdstr[] = "wsad";
+#ifndef SQSTR
+#define SQSTR "123456789"
+#endif
+
+#ifndef CMDSTR
+#define CMDSTR "wsad"
+#endif
+
+static const char cmdstr[] = CMDSTR;
 static const char* const cmddes[] = { "UP", "DOWN", "LEFT", "RIGHT", NULL };
 
 static const char* const gidstr[] = { "Normal", "Game Over!", NULL };
 
-static const char num[] = "123456789";
+static const char num[] = SQSTR;
 
 static const char keycmd[] = "-+";
 static const char* const keycmdstr[] = { "Quit", "Reset", NULL };
@@ -57,6 +64,14 @@ static unsigned int getnumindex(const char* const num, char ch)
     return -1U;
 }
 
+static unsigned int slen(const char *const str)
+{
+	unsigned int i;
+	for (i = 0; str[i]; ++i);
+	
+	return i;
+}
+
 int main(void)
 {
     char ch;
@@ -66,7 +81,7 @@ int main(void)
     unsigned int seed, index;
 
     seed = time(NULL);
-    index = getnumindex(num, BNUM);
+    index = getnumindex(num, num[slen(num)-1]);
 
     initgame(sq, seed, index);
 

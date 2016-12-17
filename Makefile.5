@@ -1,0 +1,27 @@
+CC=gcc
+FORMAT=clang-format
+N=5
+bin=slider$(N)
+CFLAGS=-g -std=c90 -pedantic -Wall -DSQSTR=\"ABCDEFGHIJKLMNOPQRSTUVWXY\" -DWxH=$(N)
+FORMATFLAGS=-i -style=WebKit
+
+
+.PHONY: all clean format
+
+all: $(bin)
+
+$(bin): main$(N).o slider$(N).o sliderio$(N).o
+	$(CC) $(LDFLAGS) -o $(bin) main$(N).o slider$(N).o sliderio$(N).o
+
+clean:
+	rm -f *.o $(bin) *.exe
+format:
+	$(FORMAT) $(FORMATFLAGS) *.c *.h
+
+
+main$(N).o: main.c slider.h sliderio.h
+	$(CC) -c $(CFLAGS) -o main$(N).o main.c
+slider$(N).o: slider.c slider.h
+	$(CC) -c $(CFLAGS) -o slider$(N).o slider.c
+sliderio$(N).o: sliderio.c sliderio.h
+	$(CC) -c $(CFLAGS) -o sliderio$(N).o sliderio.c
