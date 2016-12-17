@@ -24,10 +24,11 @@ static const char* const cmddes[] = { "UP", "DOWN", "LEFT", "RIGHT", NULL };
 
 static const char* const gidstr[] = { "Normal", "Game Over!", NULL };
 
-static const char num[] = SQSTR;
+static const char sqstr[] = SQSTR;
 
 static const char keycmd[] = "-+";
 static const char* const keycmdstr[] = { "Quit", "Reset", NULL };
+
 enum {
     kid_quit,
     kid_reset
@@ -57,11 +58,11 @@ static void showcanmove(const unsigned int* const sq, unsigned int index, const 
         printf("%c(%s) ", cmdstr[d[i]], cmddes[d[i]]);
 }
 
-static unsigned int getnumindex(const char* const num, char ch)
+static unsigned int getsqstrindex(const char* const sqstr, char ch)
 {
     unsigned int i;
-    for (i = 0; num[i]; ++i)
-        if (ch == num[i])
+    for (i = 0; sqstr[i]; ++i)
+        if (ch == sqstr[i])
             return i;
 
     return -1U;
@@ -85,7 +86,7 @@ int main(void)
     unsigned int seed, index;
 
     seed = time(NULL);
-    index = getnumindex(num, num[slen(num) - 1]);
+    index = getsqstrindex(sqstr, sqstr[slen(sqstr) - 1]);
 
     initgame(sq, seed, index, WxH);
 
@@ -95,7 +96,7 @@ int main(void)
         putchar('\n');
         showkey(keycmd, keycmdstr);
         printf("\n\n");
-        printsq(sq, num, SQUARE, index, WxH);
+        printsq(sq, sqstr, SQUARE, index, WxH);
         printf("Can move: ");
         showcanmove(sq, index, cmdstr, cmddes, WxH);
         putchar('\n');
@@ -123,7 +124,7 @@ int main(void)
         }
     } while (gid != gid_over);
 
-    printsq(sq, num, SQUARE, index, WxH);
+    printsq(sq, sqstr, SQUARE, index, WxH);
 
     return 0;
 }
