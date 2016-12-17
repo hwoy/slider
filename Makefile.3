@@ -10,8 +10,8 @@ FORMATFLAGS=-i -style=WebKit
 
 all: $(bin)
 
-$(bin): main$(N).o slider$(N).o sliderio$(N).o
-	$(CC) $(LDFLAGS) -o $(bin) main$(N).o slider$(N).o sliderio$(N).o
+$(bin): main$(N).o slider$(N).o sliderio$(N).o function$(N).o opt$(N).o
+	$(CC) $(LDFLAGS) -o $(bin) main$(N).o slider$(N).o sliderio$(N).o function$(N).o opt$(N).o
 
 clean:
 	rm -f *.o $(bin) *.exe
@@ -19,8 +19,12 @@ format:
 	$(FORMAT) $(FORMATFLAGS) *.c *.h
 
 
-main$(N).o: main.c slider.h sliderio.h
+function$(N).o: function.c function.h
+	$(CC) -c $(CFLAGS) -o function$(N).o function.c
+main$(N).o: main.c slider.h sliderio.h opt.h function.h
 	$(CC) -c $(CFLAGS) -o main$(N).o main.c
+opt$(N).o: opt.c opt.h
+	$(CC) -c $(CFLAGS) -o opt$(N).o opt.c
 slider$(N).o: slider.c slider.h
 	$(CC) -c $(CFLAGS) -o slider$(N).o slider.c
 sliderio$(N).o: sliderio.c sliderio.h

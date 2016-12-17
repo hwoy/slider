@@ -1,5 +1,7 @@
 #define RANDLOOP 1000
 
+#include "function.h"
+#include "opt.h"
 #include "slider.h"
 #include "sliderio.h"
 #include <stdio.h>
@@ -70,15 +72,6 @@ static unsigned int getsqstrindex(const char* const sqstr, char ch)
     return -1U;
 }
 
-static unsigned int slen(const char* const str)
-{
-    unsigned int i;
-    for (i = 0; str[i]; ++i)
-        ;
-
-    return i;
-}
-
 int main(void)
 {
     char ch;
@@ -88,7 +81,7 @@ int main(void)
     unsigned int seed, index;
 
     seed = time(NULL);
-    index = getsqstrindex(sqstr, sqstr[slen(sqstr) - 1]);
+    index = getsqstrindex(sqstr, sqstr[sLen(sqstr) - 1]);
 
     initgame(sq, seed, index, WxH);
 
