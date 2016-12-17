@@ -1,7 +1,6 @@
 #include "slider.h"
 #include "sliderio.h"
 #include <stdio.h>
-#include <stdlib.h>
 #include <time.h>
 
 #ifndef SQUARE

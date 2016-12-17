@@ -13,7 +13,7 @@ unsigned int getindex(const unsigned int* const sq, unsigned int blank)
 {
     unsigned int i;
 
-    for (i = 0; i < 9; ++i) {
+    for (i = 0; i < WxH*WxH; ++i) {
         if (sq[i] == blank)
             return i;
     }
@@ -23,8 +23,8 @@ unsigned int getindex(const unsigned int* const sq, unsigned int blank)
 
 void getxy(unsigned int index, struct point* const p)
 {
-    p->y = index / 3;
-    p->x = index % 3;
+    p->y = index / WxH;
+    p->x = index % WxH;
 }
 
 unsigned int slide(unsigned int* const sq, unsigned int kid, unsigned int _index)
@@ -35,12 +35,12 @@ unsigned int slide(unsigned int* const sq, unsigned int kid, unsigned int _index
     getxy(index = getindex(sq, _index), &p);
 
     if (kid == cmd_up && p.y > 0) {
-        swap(sq + index, sq + index - 3);
+        swap(sq + index, sq + index - WxH);
         ret = kid;
     }
 
-    else if (kid == cmd_down && p.y < 2) {
-        swap(sq + index, sq + index + 3);
+    else if (kid == cmd_down && p.y < WxH-1) {
+        swap(sq + index, sq + index + WxH);
         ret = kid;
     }
 
@@ -49,7 +49,7 @@ unsigned int slide(unsigned int* const sq, unsigned int kid, unsigned int _index
         ret = kid;
     }
 
-    else if (kid == cmd_right && p.x < 2) {
+    else if (kid == cmd_right && p.x < WxH-1) {
         swap(sq + index + 1, sq + index);
         ret = kid;
     }
