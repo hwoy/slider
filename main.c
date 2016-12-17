@@ -71,6 +71,7 @@ int main(void)
     initgame(sq, seed, index);
 
     do {
+		printf("Seed: %u\n\n", seed);
         showkey(cmdstr, cmddes);
         putchar('\n');
         showkey(keycmd, keycmdstr);
@@ -95,7 +96,6 @@ int main(void)
         if ((key = mapcmd(cmdstr, ch)) != -1U) {
             if ((slide(sq, key, index)) != -1U)
                 move++;
-            printf("Seed: %u\n", seed);
             printf("Move(s): %u\n", move);
             printf("Key ID: %u(%s)\n", key, cmddes[key]);
             gid = gameid(sq);
