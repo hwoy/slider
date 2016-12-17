@@ -7,12 +7,12 @@
 #define SQUARE 7
 #endif
 
-#define BNUM 9
+#define BNUM '9'
 
 static const char cmdstr[] = "wsad";
 static const char* const cmddes[] = { "UP", "DOWN", "LEFT", "RIGHT", NULL };
 
-static const char* const gidstr[] = { "Normal", "Game Over!" };
+static const char* const gidstr[] = { "Normal", "Game Over!", NULL };
 
 static const char num[] = "123456789";
 
@@ -47,6 +47,16 @@ static void showcanmove(const unsigned int* const sq, unsigned int index, const 
         printf("%c(%s) ", cmdstr[d[i]], cmddes[d[i]]);
 }
 
+static unsigned int getnumindex(const char* const num, char ch)
+{
+    unsigned int i;
+    for (i = 0; num[i]; ++i)
+        if (ch == num[i])
+            return i;
+
+    return -1U;
+}
+
 int main(void)
 {
     char ch;
@@ -56,7 +66,7 @@ int main(void)
     unsigned int seed, index;
 
     seed = time(NULL);
-    index = BNUM - 1;
+    index = getnumindex(num, BNUM);
 
     initgame(sq, seed, index);
 

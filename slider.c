@@ -13,7 +13,7 @@ unsigned int getindex(const unsigned int* const sq, unsigned int blank)
 {
     unsigned int i;
 
-    for (i = 0; i < WxH*WxH; ++i) {
+    for (i = 0; i < WxH * WxH; ++i) {
         if (sq[i] == blank)
             return i;
     }
@@ -39,7 +39,7 @@ unsigned int slide(unsigned int* const sq, unsigned int kid, unsigned int _index
         ret = kid;
     }
 
-    else if (kid == cmd_down && p.y < WxH-1) {
+    else if (kid == cmd_down && p.y < WxH - 1) {
         swap(sq + index, sq + index + WxH);
         ret = kid;
     }
@@ -49,7 +49,7 @@ unsigned int slide(unsigned int* const sq, unsigned int kid, unsigned int _index
         ret = kid;
     }
 
-    else if (kid == cmd_right && p.x < WxH-1) {
+    else if (kid == cmd_right && p.x < WxH - 1) {
         swap(sq + index + 1, sq + index);
         ret = kid;
     }
