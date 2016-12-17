@@ -23,6 +23,8 @@
 #define WxH 3
 #endif
 
+#define BSIZE 125
+
 static const char cmdstr[] = CMDSTR;
 static const char* const cmddes[] = { "UP", "DOWN", "LEFT", "RIGHT", NULL };
 
@@ -36,6 +38,19 @@ static const char* const keycmdstr[] = { "Quit", "Reset", NULL };
 enum {
     kid_quit,
     kid_reset
+};
+
+const char* const opt[] = { "-s:", "-b:", "-h", NULL };
+enum {
+    opt_s,
+    opt_b,
+    opt_h
+};
+
+const char* const err[] = { "Not a Number", "Blank not match", NULL };
+enum {
+    err_nan,
+    err_bnm
 };
 
 static void showkey(const char* const key, const char* const keystr[])
@@ -72,7 +87,7 @@ static unsigned int getsqstrindex(const char* const sqstr, char ch)
     return -1U;
 }
 
-int main(void)
+int main(int argc, const char* argv[])
 {
     char ch;
     unsigned int key, move = 0;
@@ -82,6 +97,34 @@ int main(void)
 
     seed = time(NULL);
     index = getsqstrindex(sqstr, sqstr[sLen(sqstr) - 1]);
+
+    {
+        static char buff[BSIZE];
+        int i;
+        unsigned int ui_cindex;
+        for (ui_cindex = DSTART; (i = opt_action(argc, argv, opt, buff,
+                                      BSIZE, DSTART))
+             != e_optend;
+             ui_cindex++) {
+
+            switch (i) {
+            case opt_s:
+                if (!isUint(buff)) {
+                    fprintf(stderr, "Error code:%u = %s\n", err_nan, err[err_nan]);
+                    return err_nan;
+                }
+                seed = s2ui(buff);
+                break;
+            case opt_b:
+                if ((index = getsqstrindex(sqstr, buff[0])) == -1U) {
+                    fprintf(stderr, "Error code:%u = %s\n", err_nan, err[err_bnm]);
+                    return err_bnm;
+                }
+            case 2:
+                break;
+            }
+        }
+    }
 
     initgame(sq, seed, index, WxH);
 

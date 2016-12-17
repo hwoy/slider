@@ -3,7 +3,7 @@
 
 static int i_upindex = DUPINDEX;
 
-int opt_action(int argc, const char* argv[], const char* param[], char* buff,
+int opt_action(int argc, const char* const argv[], const char* const param[], char* const buff,
     unsigned int bsize, int start)
 {
     int i, j, l;
