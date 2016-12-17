@@ -9,11 +9,11 @@ void swap(unsigned int* const a, unsigned int* const b)
     *b = tmp;
 }
 
-unsigned int getindex(const unsigned int* const sq, unsigned int blank)
+unsigned int getindex(const unsigned int* const sq, unsigned int blank, unsigned int hw)
 {
     unsigned int i;
 
-    for (i = 0; i < WxH * WxH; ++i) {
+    for (i = 0; i < hw * hw; ++i) {
         if (sq[i] == blank)
             return i;
     }
@@ -21,26 +21,26 @@ unsigned int getindex(const unsigned int* const sq, unsigned int blank)
     return -1u;
 }
 
-void getxy(unsigned int index, struct point* const p)
+void getxy(unsigned int index, struct point* const p, unsigned int hw)
 {
-    p->y = index / WxH;
-    p->x = index % WxH;
+    p->y = index / hw;
+    p->x = index % hw;
 }
 
-unsigned int slide(unsigned int* const sq, unsigned int kid, unsigned int _index)
+unsigned int slide(unsigned int* const sq, unsigned int kid, unsigned int _index, unsigned int hw)
 {
     struct point p;
     unsigned int index, ret = -1U;
 
-    getxy(index = getindex(sq, _index), &p);
+    getxy(index = getindex(sq, _index, hw), &p, hw);
 
     if (kid == cmd_up && p.y > 0) {
-        swap(sq + index, sq + index - WxH);
+        swap(sq + index, sq + index - hw);
         ret = kid;
     }
 
-    else if (kid == cmd_down && p.y < WxH - 1) {
-        swap(sq + index, sq + index + WxH);
+    else if (kid == cmd_down && p.y < hw - 1) {
+        swap(sq + index, sq + index + hw);
         ret = kid;
     }
 
@@ -49,7 +49,7 @@ unsigned int slide(unsigned int* const sq, unsigned int kid, unsigned int _index
         ret = kid;
     }
 
-    else if (kid == cmd_right && p.x < WxH - 1) {
+    else if (kid == cmd_right && p.x < hw - 1) {
         swap(sq + index + 1, sq + index);
         ret = kid;
     }
@@ -57,21 +57,21 @@ unsigned int slide(unsigned int* const sq, unsigned int kid, unsigned int _index
     return ret;
 }
 
-void slidesq(unsigned int* const sq, const unsigned int* const cmdsq, unsigned int n, unsigned int index)
+void slidesq(unsigned int* const sq, const unsigned int* const cmdsq, unsigned int n, unsigned int index, unsigned int hw)
 {
     unsigned int i;
     for (i = 0; i < n; ++i)
-        slide(sq, cmdsq[i], index);
+        slide(sq, cmdsq[i], index, hw);
 }
 
-unsigned int initsq(unsigned int* const sq)
+unsigned int initsq(unsigned int* const sq, unsigned int hw)
 {
     unsigned int i;
 
-    for (i = 0; i < WxH * WxH; ++i)
+    for (i = 0; i < hw * hw; ++i)
         sq[i] = i;
 
-    return WxH;
+    return hw;
 }
 
 void initseed(unsigned int seed)
@@ -79,21 +79,21 @@ void initseed(unsigned int seed)
     srand(seed);
 }
 
-unsigned int canmovesq(const unsigned int* const sq, unsigned int index)
+unsigned int canmovesq(const unsigned int* const sq, unsigned int index, unsigned int hw)
 {
     struct point p;
     unsigned int i = 0xf;
 
-    getxy(index = getindex(sq, index), &p);
+    getxy(index = getindex(sq, index, hw), &p, hw);
 
     if (!p.y)
         i ^= (1 << 0);
     if (!p.x)
         i ^= (1 << 2);
 
-    if (p.y == WxH - 1)
+    if (p.y == hw - 1)
         i ^= (1 << 1);
-    if (p.x == WxH - 1)
+    if (p.x == hw - 1)
         i ^= (1 << 3);
 
     return i;
@@ -111,23 +111,23 @@ unsigned int extractcanmovesq(unsigned int* const d, unsigned int value)
     return j;
 }
 
-unsigned int randomsq(unsigned int* const sq, unsigned int index)
+unsigned int randomsq(unsigned int* const sq, unsigned int index, unsigned int hw)
 {
     unsigned int i, d[4], j;
 
     for (i = 0; i < RANDLOOP; ++i) {
-        j = extractcanmovesq(d, canmovesq(sq, index));
-        slide(sq, d[rand() % j], index);
+        j = extractcanmovesq(d, canmovesq(sq, index, hw));
+        slide(sq, d[rand() % j], index, hw);
     }
 
     return RANDLOOP;
 }
 
-unsigned int gameid(const unsigned int* const sq)
+unsigned int gameid(const unsigned int* const sq, unsigned int hw)
 {
     unsigned int i;
 
-    for (i = 0; i < WxH * WxH; ++i)
+    for (i = 0; i < hw * hw; ++i)
         if (sq[i] != i)
             return gid_normal;
 

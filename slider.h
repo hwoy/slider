@@ -1,10 +1,6 @@
 #ifndef _SLIDER_H_
 #define _SLIDER_H_
 
-#ifndef WxH
-#define WxH 3
-#endif
-
 #ifndef RANDLOOP
 #define RANDLOOP 100
 #endif
@@ -25,26 +21,26 @@ enum {
     gid_over
 };
 
-void initseed(unsigned int seed);
-
-unsigned int initsq(unsigned int* const sq);
-
-unsigned int randomsq(unsigned int* const sq, unsigned int index);
-
 void swap(unsigned int* const a, unsigned int* const b);
 
-unsigned int getindex(const unsigned int* const sq, unsigned int blank);
+unsigned int getindex(const unsigned int* const sq, unsigned int blank, unsigned int hw);
 
-void getxy(unsigned int index, struct point* const p);
+void getxy(unsigned int index, struct point* const p, unsigned int hw);
 
-unsigned int slide(unsigned int* const sq, unsigned int kid, unsigned int _index);
+unsigned int slide(unsigned int* const sq, unsigned int kid, unsigned int _index, unsigned int hw);
 
-void slidesq(unsigned int* const sq, const unsigned int* const cmdsq, unsigned int n, unsigned int index);
+void slidesq(unsigned int* const sq, const unsigned int* const cmdsq, unsigned int n, unsigned int index, unsigned int hw);
 
-unsigned int gameid(const unsigned int* const sq);
+unsigned int initsq(unsigned int* const sq, unsigned int hw);
 
-unsigned int canmovesq(const unsigned int* const sq, unsigned int index);
+void initseed(unsigned int seed);
+
+unsigned int canmovesq(const unsigned int* const sq, unsigned int index, unsigned int hw);
 
 unsigned int extractcanmovesq(unsigned int* const d, unsigned int value);
+
+unsigned int randomsq(unsigned int* const sq, unsigned int index, unsigned int hw);
+
+unsigned int gameid(const unsigned int* const sq, unsigned int hw);
 
 #endif

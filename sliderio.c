@@ -32,12 +32,12 @@ void frame(const unsigned int* const sq, const char* const num, unsigned int n, 
     }
 }
 
-void printsq(const unsigned int* const sq, const char* const num, unsigned int square, unsigned int index)
+void printsq(const unsigned int* const sq, const char* const num, unsigned int square, unsigned int index, unsigned int hw)
 {
     unsigned int i;
 
-    for (i = 0; i < WxH; ++i) {
-        frame(sq + i * WxH, num, WxH, square, index);
+    for (i = 0; i < hw; ++i) {
+        frame(sq + i * hw, num, hw, square, index);
         putchar('\n');
     }
 }
@@ -53,9 +53,9 @@ unsigned int mapcmd(const char* const cmdstr, char ch)
     return -1;
 }
 
-void slidesqstr(unsigned int* const sq, const char* const cmdstr, const char* const str, unsigned int index)
+void slidesqstr(unsigned int* const sq, const char* const cmdstr, const char* const str, unsigned int index, unsigned int hw)
 {
     unsigned int i;
     for (i = 0; str[i]; ++i)
-        slide(sq, mapcmd(cmdstr, str[i]), index);
+        slide(sq, mapcmd(cmdstr, str[i]), index, hw);
 }
