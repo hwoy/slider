@@ -39,6 +39,15 @@ static void initgame(unsigned int* const sq, unsigned int seed, unsigned int ind
     randomsq(sq, index);
 }
 
+static void showcanmove(const unsigned int* const sq, unsigned int index, const char* const cmdstr, const char* const cmddes[])
+{
+    unsigned int d[4], i, j;
+
+    j = extractcanmovesq(d, canmovesq(sq, index));
+    for (i = 0; i < j; ++i)
+        printf("%c(%s) ", cmdstr[d[i]], cmddes[d[i]]);
+}
+
 int main(void)
 {
     char ch;
@@ -58,6 +67,9 @@ int main(void)
         showkey(keycmd, keycmdstr);
         printf("\n\n");
         printsq(sq, num, SQUARE, index);
+        printf("Can move: ");
+        showcanmove(sq, index, cmdstr, cmddes);
+        putchar('\n');
         printf("Press a key -> ");
         fflush(stdout);
 
@@ -74,8 +86,8 @@ int main(void)
         if ((key = mapcmd(cmdstr, ch)) != -1U) {
             if ((slide(sq, key, index)) != -1U)
                 move++;
-            printf("Seed:%u\n", seed);
-            printf("Move(s):%u\n", move);
+            printf("Seed: %u\n", seed);
+            printf("Move(s): %u\n", move);
             printf("Key ID: %u(%s)\n", key, cmddes[key]);
             gid = gameid(sq);
             printf("Game ID: %u(%s)\n\n", gid, gidstr[gid]);
@@ -83,5 +95,6 @@ int main(void)
     } while (gid != gid_over);
 
     printsq(sq, num, SQUARE, index);
+
     return 0;
 }

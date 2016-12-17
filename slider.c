@@ -79,12 +79,46 @@ void initseed(unsigned int seed)
     srand(seed);
 }
 
+unsigned int canmovesq(const unsigned int* const sq, unsigned int index)
+{
+    struct point p;
+    unsigned int i = 0xf;
+
+    getxy(index = getindex(sq, index), &p);
+
+    if (!p.y)
+        i ^= (1 << 0);
+    if (!p.x)
+        i ^= (1 << 2);
+
+    if (p.y == WxH - 1)
+        i ^= (1 << 1);
+    if (p.x == WxH - 1)
+        i ^= (1 << 3);
+
+    return i;
+}
+
+unsigned int extractcanmovesq(unsigned int* const d, unsigned int value)
+{
+    unsigned int i, j;
+
+    for (i = 0, j = 0; i < 4; ++i) {
+        if (value & (1 << i))
+            d[j++] = i;
+    }
+
+    return j;
+}
+
 unsigned int randomsq(unsigned int* const sq, unsigned int index)
 {
-    unsigned int i;
+    unsigned int i, d[4], j;
 
-    for (i = 0; i < RANDLOOP; ++i)
-        slide(sq, rand() % (WxH * WxH), index);
+    for (i = 0; i < RANDLOOP; ++i) {
+        j = extractcanmovesq(d, canmovesq(sq, index));
+        slide(sq, d[rand() % j], index);
+    }
 
     return RANDLOOP;
 }

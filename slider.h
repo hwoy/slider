@@ -4,7 +4,7 @@
 #define WxH 3
 
 #ifndef RANDLOOP
-#define RANDLOOP 200
+#define RANDLOOP 100
 #endif
 
 struct point {
@@ -40,5 +40,9 @@ unsigned int slide(unsigned int* const sq, unsigned int kid, unsigned int _index
 void slidesq(unsigned int* const sq, const unsigned int* const cmdsq, unsigned int n, unsigned int index);
 
 unsigned int gameid(const unsigned int* const sq);
+
+unsigned int canmovesq(const unsigned int* const sq, unsigned int index);
+
+unsigned int extractcanmovesq(unsigned int* const d, unsigned int value);
 
 #endif
