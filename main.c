@@ -127,7 +127,7 @@ void showhelp(const char* const opt[], const char* const optstr[], const char* c
     fprintf(stderr, "%s %s%c\n", grappath(path), opt[opt_b], ch);
 }
 
-int main(int argc, const char* argv[])
+int main(int argc, const char* const argv[])
 {
     char ch;
     unsigned int key, move = 0;
