@@ -1,4 +1,6 @@
+#ifndef RANDLOOP
 #define RANDLOOP 1000
+#endif
 
 #include "function.h"
 #include "opt.h"
