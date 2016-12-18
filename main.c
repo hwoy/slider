@@ -41,16 +41,18 @@ enum {
 };
 
 const char* const opt[] = { "-s:", "-b:", "-h", NULL };
+const char* const optstr[] = { "Seed Number", "Blank Charecter", "Show Help", NULL };
 enum {
     opt_s,
     opt_b,
     opt_h
 };
 
-const char* const err[] = { "Not a Number", "Blank not match", NULL };
+const char* const err[] = { "Not a Number", "Blank not match", "Invalid option", NULL };
 enum {
     err_nan,
-    err_bnm
+    err_bnm,
+    err_inopt
 };
 
 static void showkey(const char* const key, const char* const keystr[])
@@ -87,6 +89,44 @@ static unsigned int getsqstrindex(const char* const sqstr, char ch)
     return -1U;
 }
 
+unsigned int showerr(const char* const str[], unsigned int id, const char* const opt, const char* const param)
+{
+    fprintf(stderr, "Error Report\n\n");
+    if (opt)
+        fprintf(stderr, "Option: %s\n", opt);
+    if (param)
+        fprintf(stderr, "Param: %s\n", param);
+    fprintf(stderr, "Error code: %u = %s\n", id, str[id]);
+
+    return id;
+}
+
+static const char* const grappath(const char* const path)
+{
+    unsigned int i, j;
+    for (j = 0, i = 0; path[i]; i++) {
+        if (path[i] == '\\' || path[i] == '/')
+            j = i + 1;
+    }
+
+    return path + j;
+}
+
+void showhelp(const char* const opt[], const char* const optstr[], const char* const path, char ch)
+{
+    unsigned int i;
+
+    fprintf(stderr, "%s is a cross platform slider game\n\n", grappath(path));
+
+    fprintf(stderr, "Options\n");
+    for (i = 0; opt[i]; ++i)
+        fprintf(stderr, "%s = %s\n", opt[i], optstr[i]);
+
+    fprintf(stderr, "\nExample\n");
+    fprintf(stderr, "%s %s%u\n", grappath(path), opt[opt_s], 100);
+    fprintf(stderr, "%s %s%c\n", grappath(path), opt[opt_b], ch);
+}
+
 int main(int argc, const char* argv[])
 {
     char ch;
@@ -102,6 +142,7 @@ int main(int argc, const char* argv[])
         static char buff[BSIZE];
         int i;
         unsigned int ui_cindex;
+
         for (ui_cindex = DSTART; (i = opt_action(argc, argv, opt, buff,
                                       BSIZE, DSTART))
              != e_optend;
@@ -109,19 +150,25 @@ int main(int argc, const char* argv[])
 
             switch (i) {
             case opt_s:
-                if (!isUint(buff)) {
-                    fprintf(stderr, "Error code:%u = %s\n", err_nan, err[err_nan]);
-                    return err_nan;
-                }
+                if (!isUint(buff))
+                    return showerr(err, err_nan, opt[opt_s], buff) + 1;
+
                 seed = s2ui(buff);
                 break;
             case opt_b:
-                if (sLen(buff) != 1 || (index = getsqstrindex(sqstr, buff[0])) == -1U) {
-                    fprintf(stderr, "Error code:%u = %s\n", err_nan, err[err_bnm]);
-                    return err_bnm;
-                }
-            case 2:
+                if (sLen(buff) != 1 || (index = getsqstrindex(sqstr, buff[0])) == -1U)
+                    return showerr(err, err_bnm, opt[opt_b], buff) + 1;
+
                 break;
+            case opt_h:
+                showhelp(opt, optstr, argv[0], sqstr[0]);
+                return 0;
+                break;
+
+            default:
+                showhelp(opt, optstr, argv[0], sqstr[0]);
+                fprintf(stderr, "\n\n");
+                return showerr(err, err_inopt, buff, NULL) + 1;
             }
         }
     }
