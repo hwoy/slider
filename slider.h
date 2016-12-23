@@ -33,13 +33,11 @@ void slidesq(unsigned int* const sq, const unsigned int* const cmdsq, unsigned i
 
 unsigned int initsq(unsigned int* const sq, unsigned int hw);
 
-void initseed(unsigned int seed);
-
 unsigned int canmovesq(const unsigned int* const sq, unsigned int index, unsigned int hw);
 
 unsigned int extractcanmovesq(unsigned int* const d, unsigned int value);
 
-unsigned int randomsq(unsigned int* const sq, unsigned int index, unsigned int hw);
+unsigned int randomsq(unsigned int* const sq, unsigned int index, unsigned int hw, unsigned int* seed);
 
 unsigned int gameid(const unsigned int* const sq, unsigned int hw);
 

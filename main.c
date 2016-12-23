@@ -65,11 +65,10 @@ static void showkey(const char* const key, const char* const keystr[])
         printf(" %c(%s) ", key[i], keystr[i]);
 }
 
-static void initgame(unsigned int* const sq, unsigned int seed, unsigned int index, unsigned int hw)
+static void initgame(unsigned int* const sq, unsigned int* seed, unsigned int index, unsigned int hw)
 {
-    initseed(seed);
     initsq(sq, hw);
-    randomsq(sq, index, hw);
+    randomsq(sq, index, hw, seed);
 }
 
 static void showcanmove(const unsigned int* const sq, unsigned int index, const char* const cmdstr, const char* const cmddes[], unsigned int hw)
@@ -135,9 +134,9 @@ int main(int argc, const char* const argv[])
     unsigned int key, move = 0;
     unsigned int sq[WxH * WxH];
     unsigned int gid = gid_normal;
-    unsigned int seed, index;
+    unsigned int seed, origseed, index;
 
-    seed = time(NULL);
+    origseed = seed = time(NULL);
     index = getsqstrindex(sqstr, sqstr[sLen(sqstr) - 1]);
 
     {
@@ -155,7 +154,7 @@ int main(int argc, const char* const argv[])
                 if (!isUint(buff))
                     return showerr(err, err_nan, opt[opt_s], buff) + 1;
 
-                seed = s2ui(buff);
+                origseed = seed = s2ui(buff);
                 break;
             case opt_b:
                 if (sLen(buff) != 1 || (index = getsqstrindex(sqstr, buff[0])) == -1U)
@@ -175,10 +174,10 @@ int main(int argc, const char* const argv[])
         }
     }
 
-    initgame(sq, seed, index, WxH);
+    initgame(sq, &seed, index, WxH);
 
     do {
-        printf("Seed: %u\n\n", seed);
+        printf("Seed: %u\n\n", origseed);
         showkey(cmdstr, cmddes);
         putchar('\n');
         showkey(keycmd, keycmdstr);
@@ -196,7 +195,8 @@ int main(int argc, const char* const argv[])
         if (ch == keycmd[kid_quit]) {
             break;
         } else if (ch == keycmd[kid_reset]) {
-            initgame(sq, seed, index, WxH);
+            seed = origseed;
+            initgame(sq, &seed, index, WxH);
             move = 0;
             continue;
         }

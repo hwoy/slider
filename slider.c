@@ -1,5 +1,5 @@
 #include "slider.h"
-#include <stdlib.h>
+#include "minstd.h"
 
 void swap(unsigned int* const a, unsigned int* const b)
 {
@@ -74,11 +74,6 @@ unsigned int initsq(unsigned int* const sq, unsigned int hw)
     return hw;
 }
 
-void initseed(unsigned int seed)
-{
-    srand(seed);
-}
-
 unsigned int canmovesq(const unsigned int* const sq, unsigned int index, unsigned int hw)
 {
     struct point p;
@@ -111,13 +106,13 @@ unsigned int extractcanmovesq(unsigned int* const d, unsigned int value)
     return j;
 }
 
-unsigned int randomsq(unsigned int* const sq, unsigned int index, unsigned int hw)
+unsigned int randomsq(unsigned int* const sq, unsigned int index, unsigned int hw, unsigned int* seed)
 {
     unsigned int i, d[4], j;
 
     for (i = 0; i < RANDLOOP; ++i) {
         j = extractcanmovesq(d, canmovesq(sq, index, hw));
-        slide(sq, d[rand() % j], index, hw);
+        slide(sq, d[minstd_rand(seed) % j], index, hw);
     }
 
     return RANDLOOP;
