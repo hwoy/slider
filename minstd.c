@@ -2,10 +2,10 @@
 
 uint32_t minstd_rand0(uint32_t* sd)
 {
-    return linear_congruential_generator(sd, Astd0, Cstd, Mstd);
+    return lcg_lehmer(sd, Astd0, Mstd);
 }
 
 uint32_t minstd_rand(uint32_t* sd)
 {
-    return linear_congruential_generator(sd, Astd, Cstd, Mstd);
+    return lcg_lehmer(sd, Astd, Mstd);
 }

@@ -41,4 +41,6 @@ unsigned int randomsq(unsigned int* const sq, unsigned int index, unsigned int h
 
 unsigned int gameid(const unsigned int* const sq, unsigned int hw);
 
+const char* randomengine(void);
+
 #endif

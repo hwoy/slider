@@ -177,7 +177,8 @@ int main(int argc, const char* const argv[])
     initgame(sq, &seed, index, WxH);
 
     do {
-        printf("Seed: %u\n\n", origseed);
+        printf("Seed: %u\n", origseed);
+        printf("Random Engine: %s\n\n", randomengine());
         showkey(cmdstr, cmddes);
         putchar('\n');
         showkey(keycmd, keycmdstr);

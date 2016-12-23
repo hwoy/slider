@@ -128,3 +128,8 @@ unsigned int gameid(const unsigned int* const sq, unsigned int hw)
 
     return gid_over;
 }
+
+const char* randomengine(void)
+{
+    return "minstd_rand";
+}
