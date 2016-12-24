@@ -110,10 +110,12 @@ unsigned int randomsq(unsigned int* const sq, unsigned int index, unsigned int h
 {
     unsigned int i, d[4], j;
 
-    for (i = 0; i < RANDLOOP; ++i) {
-        j = extractcanmovesq(d, canmovesq(sq, index, hw));
-        slide(sq, d[minstd_rand(seed) % j], index, hw);
-    }
+    do {
+        for (i = 0; i < RANDLOOP; ++i) {
+            j = extractcanmovesq(d, canmovesq(sq, index, hw));
+            slide(sq, d[minstd_rand(seed) % j], index, hw);
+        }
+    } while (gameid(sq, hw) == gid_over);
 
     return RANDLOOP;
 }

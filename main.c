@@ -42,15 +42,15 @@ enum {
     kid_reset
 };
 
-const char* const opt[] = { "-s:", "-b:", "-h", NULL };
-const char* const optstr[] = { "Seed Number", "Blank Charecter", "Show Help", NULL };
+static const char* const opt[] = { "-s:", "-b:", "-h", NULL };
+static const char* const optstr[] = { "Seed Number", "Blank Charecter", "Show Help", NULL };
 enum {
     opt_s,
     opt_b,
     opt_h
 };
 
-const char* const err[] = { "Not a Number", "Blank not match", "Invalid option", NULL };
+static const char* const err[] = { "Not a Number", "Blank not match", "Invalid option", NULL };
 enum {
     err_nan,
     err_bnm,
@@ -90,7 +90,7 @@ static unsigned int getsqstrindex(const char* const sqstr, char ch)
     return -1U;
 }
 
-unsigned int showerr(const char* const str[], unsigned int id, const char* const opt, const char* const param)
+static unsigned int showerr(const char* const str[], unsigned int id, const char* const opt, const char* const param)
 {
     fprintf(stderr, "Error Report\n\n");
     if (opt)
@@ -113,7 +113,7 @@ static const char* const grappath(const char* const path)
     return path + j;
 }
 
-void showhelp(const char* const opt[], const char* const optstr[], const char* const path, char ch)
+static void showhelp(const char* const opt[], const char* const optstr[], const char* const path, char ch)
 {
     unsigned int i;
 
