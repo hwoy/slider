@@ -54,6 +54,6 @@ $ ls Make* | xargs -I{} make -f {}
 
 
 
-### Cntact me
+### Contact me
 - Email: booskillerz@gmail.com
 - FB: facebook.com/watt.duean
