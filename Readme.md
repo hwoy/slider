@@ -5,7 +5,10 @@
 - Written in ansi-C.
 - No special lib, standard lib only.
 
-
+### Features
+1. In-house random number generator [prng](https://github.com/hwoy/prng) , avoid difference value if you use rand() in stdlib.h in differnece C standard lib
+2. set seed by -s:[SEED NUMBER] parameter
+3. set blank by -b:[blank charecter] parameter
 
 ### How to build
 
