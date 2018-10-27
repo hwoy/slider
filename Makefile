@@ -2,7 +2,7 @@ CC=gcc
 FORMAT=clang-format
 
 bin=slider
-CFLAGS=-g -std=c90 -pedantic -Wall
+CFLAGS=-g -std=c90 -pedantic -Wall -Wextra
 FORMATFLAGS=-i -style=WebKit
 
 

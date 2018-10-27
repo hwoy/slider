@@ -102,7 +102,7 @@ static unsigned int showerr(const char* const str[], unsigned int id, const char
     return id;
 }
 
-static const char* const grappath(const char* const path)
+static const char* grappath(const char* const path)
 {
     unsigned int i, j;
     for (j = 0, i = 0; path[i]; i++) {
