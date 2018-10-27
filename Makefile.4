@@ -2,7 +2,7 @@ CC=gcc
 FORMAT=clang-format
 N=4
 bin=slider$(N)
-CFLAGS=-g -std=c90 -pedantic -Wall -DSQSTR=\"ABCDEFGHIJKLMNOP\" -DWxH=$(N)
+CFLAGS=-g -std=c90 -pedantic -Wall  -Wextra -DSQSTR=\"ABCDEFGHIJKLMNOP\" -DWxH=$(N)
 FORMATFLAGS=-i -style=WebKit
 
 
