@@ -142,12 +142,10 @@ int main(int argc, const char* const argv[])
     {
         static char buff[BSIZE];
         int i;
-        unsigned int ui_cindex;
 
-        for (ui_cindex = DSTART; (i = opt_action(argc, argv, opt, buff,
-                                      BSIZE, DSTART))
-             != e_optend;
-             ui_cindex++) {
+        while ((i = opt_action(argc, argv, opt, buff,
+                    BSIZE, DSTART))
+            != e_optend) {
 
             switch (i) {
             case opt_s:
